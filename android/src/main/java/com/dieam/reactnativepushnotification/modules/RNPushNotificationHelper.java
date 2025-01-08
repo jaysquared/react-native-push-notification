@@ -173,15 +173,7 @@ public class RNPushNotificationHelper {
 
         Log.d(LOG_TAG, String.format("Setting a notification with id %s at time %s",
                 bundle.getString("id"), Long.toString(fireDate)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (allowWhileIdle && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getAlarmManager().setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, fireDate, pendingIntent);
-            } else {
-                getAlarmManager().setExact(AlarmManager.RTC_WAKEUP, fireDate, pendingIntent);
-            }
-        } else {
-            getAlarmManager().set(AlarmManager.RTC_WAKEUP, fireDate, pendingIntent);
-        }
+        getAlarmManager().setWindow(AlarmManager.RTC_WAKEUP, fireDate, 10 * 60 * 1000, pendingIntent);
     }
 
 
